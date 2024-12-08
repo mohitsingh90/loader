@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { TextInput, View } from "react-native";
 import Animated, { interpolateColor, useAnimatedProps, useDerivedValue, useSharedValue, withTiming } from "react-native-reanimated";
-import { Circle, Svg } from "react-native-svg";
-import 'react-native-gesture-handler'
+import { Circle, Svg, LinearGradient } from "react-native-svg";
+import 'react-native-gesture-handler';
+
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 const AnimatedText = Animated.createAnimatedComponent(TextInput);
 
@@ -10,7 +11,7 @@ const radius = 45;
 const circumference = radius * Math.PI * 2;
 const duration = 6000;
 
-const App= () => {
+const App = () => {
 
   const strokeOffset = useSharedValue(circumference);
 
@@ -48,7 +49,7 @@ const App= () => {
   });
 
   useEffect(() => {
-      strokeOffset.value = 0;
+    strokeOffset.value = 0;
   }, []);
 
   return (
@@ -57,7 +58,7 @@ const App= () => {
       justifyContent: 'center',
       alignItems: 'center',
     }}>
-      <AnimatedText
+      {/* <AnimatedText
         style={{
           color:"#37306B",
           fontSize: 24,
@@ -65,8 +66,9 @@ const App= () => {
           position: 'absolute',
         }}
         animatedProps={animatedTextProps}
-      />
-      <Svg height="80%" width="80%" viewBox="0 0 100 100" >
+      /> */}
+      <View style={{backgroundColor: "red", width: 170, height: 170, borderRadius: 170 / 2, position: 'absolute',}}></View>
+      <Svg height="80%" width="80%" viewBox="0 0 100 100">
         <Circle 
           cx="50"
           cy="50"
@@ -75,7 +77,9 @@ const App= () => {
           strokeWidth="10"
           fill="transparent"
         />
-           <AnimatedCircle
+        
+        {/* Rotated Small Circle (secondary circle) */}
+        <AnimatedCircle
           animatedProps={animatedSmallCircleProps}
           cx="50"
           cy="50"
@@ -83,7 +87,10 @@ const App= () => {
           strokeDasharray={`${radius * Math.PI * 2}`}
           strokeWidth="10"
           fill="transparent"
+          transform="rotate(-90 50 50)"  // Rotate by -90 degrees to start from top
         />
+        
+        {/* Rotated Animated Circle (loader circle) */}
         <AnimatedCircle
           animatedProps={animatedCircleProps}
           cx="50"
@@ -92,7 +99,8 @@ const App= () => {
           strokeDasharray={`${radius * Math.PI * 2}`}
           strokeWidth="10"
           fill="transparent"
-          strokeLinecap={'round'}
+          strokeLinecap="round"
+          transform="rotate(-90 50 50)"  // Rotate by -90 degrees to start from top
         />
       </Svg>
     </View>
